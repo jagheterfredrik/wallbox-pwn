@@ -1,4 +1,4 @@
-# wallbox-pwn
+# Wallbox pwn
 Gain root access to Wallbox Pulsar Plus
 
 ## Instructions
@@ -6,7 +6,7 @@ A computer with both Bluetooth and Wifi is required, only tested on mac.
 
 1. Install bleak (`pip install bleak`)
 
-2. Pwn Wallbox by running the following and following the instructions
+2. Pwn Wallbox by running the wallbox-pwn script and follow the instructions
 ```bash
 python wallbox-pwn.py
 ```

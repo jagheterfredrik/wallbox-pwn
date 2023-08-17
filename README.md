@@ -11,7 +11,7 @@ A computer with both Bluetooth and Wifi is required, only tested on mac.
 python wallbox-pwn.py
 ```
 
-3. After reconnecting to your wifi, you can SSH to Wallbox as root using it's IP
+3. After reconnecting to your wifi, you can SSH to Wallbox as root using its IP and the private key
 ```bash
 ssh -i id_rsa root@192.168.13.37
 ```

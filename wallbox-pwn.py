@@ -21,6 +21,7 @@ class WallboxBLE():
     async def connect(self, device):
         self.client = BleakClient(device, timeout=30)
         await self.client.connect()
+        await self.client.pair()
 
         await self.client.start_notify(UART_TX_CHAR_UUID, self.handle_rx)
         nus = self.client.services.get_service(UART_SERVICE_UUID)

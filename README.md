@@ -2,7 +2,7 @@
 Gain root access to Wallbox Pulsar Plus
 
 ## Instructions
-A computer with both Bluetooth and Wifi is required, only tested on mac.
+A computer with both Bluetooth and Wifi is required, tested on OS X and Windows.
 
 1. Install bleak (`pip install bleak`)
 

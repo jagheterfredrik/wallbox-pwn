@@ -8,9 +8,19 @@ import socket
 from bleak import BleakClient, BleakScanner
 from bleak.backends.characteristic import BleakGATTCharacteristic
 
-UART_SERVICE_UUID = "331a36f5-2459-45ea-9d95-6142f0c4b307"
-UART_RX_CHAR_UUID = "a9da6040-0823-4995-94ec-9ce41ca28833"
-UART_TX_CHAR_UUID = "a73e9a10-628f-4494-a099-12efaf72258f"
+class BluetoothDevice():
+    def __init__(self, name, pair, service, rx, tx):
+        self.name = name
+        self.pair = pair
+        self.service = service
+        self.rx = rx
+        self.tx = tx
+
+device_types = [
+    BluetoothDevice("BGX", True, "331a36f5-2459-45ea-9d95-6142f0c4b307", "a9da6040-0823-4995-94ec-9ce41ca28833", "a73e9a10-628f-4494-a099-12efaf72258f"),
+    BluetoothDevice("Zentri", False, "175f8f23-a570-49bd-9627-815a6a27de2a", "1cce1ea8-bd34-4813-a00a-c76e028fadcb", "cacc07ff-ffff-4c48-8fae-a9ef71b75e26"),
+    BluetoothDevice("UBlox", True, "2456e1b9-26e2-8f83-e744-f34f01e9d701", "2456e1b9-26e2-8f83-e744-f34f01e9d703", "2456e1b9-26e2-8f83-e744-f34f01e9d703"),
+]
 
 class WallboxBLE():
     def __init__(self):
@@ -21,13 +31,22 @@ class WallboxBLE():
     async def connect(self, device):
         self.client = BleakClient(device, timeout=30)
         await self.client.connect()
+
+        services = await client.get_services()
+        device_definition = None
+        for dt in device_types:
+            if dt.service in services:
+                device_definition = dt
+                break
+
         # Pairing is not implemented on mac
         with contextlib.suppress(NotImplementedError):
-            await self.client.pair()
+            if device_definition.pair:
+                await self.client.pair()
 
-        await self.client.start_notify(UART_TX_CHAR_UUID, self.handle_rx)
-        nus = self.client.services.get_service(UART_SERVICE_UUID)
-        self.rx_char = nus.get_characteristic(UART_RX_CHAR_UUID)
+        await self.client.start_notify(device_definition.tx, self.handle_rx)
+        nus = self.client.services.get_service(device_definition.service)
+        self.rx_char = nus.get_characteristic(device_definition.rx)
 
     async def handle_rx(self, _: BleakGATTCharacteristic, data: bytearray):
         self.all_data += data

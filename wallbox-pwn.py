@@ -8,9 +8,11 @@ import socket
 from bleak import BleakClient, BleakScanner
 from bleak.backends.characteristic import BleakGATTCharacteristic
 
-UART_SERVICE_UUID = "331a36f5-2459-45ea-9d95-6142f0c4b307"
-UART_RX_CHAR_UUID = "a9da6040-0823-4995-94ec-9ce41ca28833"
-UART_TX_CHAR_UUID = "a73e9a10-628f-4494-a099-12efaf72258f"
+MAX_CHUNK_SIZE = 20
+
+UART_SERVICE_UUID = "175f8f23-a570-49bd-9627-815a6a27de2a"
+UART_RX_CHAR_UUID = "1cce1ea8-bd34-4813-a00a-c76e028fadcb"
+UART_TX_CHAR_UUID = "cacc07ff-ffff-4c48-8fae-a9ef71b75e26"
 
 class WallboxBLE():
     def __init__(self):
@@ -51,7 +53,10 @@ class WallboxBLE():
         data = b"EaE" + bytes([len(data)]) + data
         data = data + bytes([sum(c for c in data) % 256])
 
-        await self.client.write_gatt_char(self.rx_char, data, True)
+        chunks = [data[i:i+MAX_CHUNK_SIZE] for i in range(0, len(data), MAX_CHUNK_SIZE)]
+
+        for chunk in chunks:
+            await self.client.write_gatt_char(self.rx_char, chunk, False)
 
         with contextlib.suppress(asyncio.TimeoutError):
             await asyncio.wait_for(self.evt.wait(), 10)

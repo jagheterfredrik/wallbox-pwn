@@ -22,7 +22,7 @@ class BluetoothDevice():
 device_types = [
     BluetoothDevice("BGX", True, "331a36f5-2459-45ea-9d95-6142f0c4b307", "a9da6040-0823-4995-94ec-9ce41ca28833", "a73e9a10-628f-4494-a099-12efaf72258f", 256, True),
     BluetoothDevice("Zentri", False, "175f8f23-a570-49bd-9627-815a6a27de2a", "1cce1ea8-bd34-4813-a00a-c76e028fadcb", "cacc07ff-ffff-4c48-8fae-a9ef71b75e26", 20, False),
-    BluetoothDevice("UBlox", False, "2456e1b9-26e2-8f83-e744-f34f01e9d701", "2456e1b9-26e2-8f83-e744-f34f01e9d703", "2456e1b9-26e2-8f83-e744-f34f01e9d703", 20, False),
+    BluetoothDevice("UBlox", True, "2456e1b9-26e2-8f83-e744-f34f01e9d701", "2456e1b9-26e2-8f83-e744-f34f01e9d703", "2456e1b9-26e2-8f83-e744-f34f01e9d703", 20, False),
 ]
 
 class WallboxBLE():

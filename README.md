@@ -24,7 +24,8 @@ A computer with both Bluetooth and Wifi is required, tested on OS X and Windows.
 3. After reconnecting to your wifi, you can SSH to Wallbox as root using its IP and the private key. Example:
 
     ```bash
-    ssh -i id_rsa root@192.168.13.37
+    chmod 0600 id_rsa
+    ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa -i id_rsa root@192.168.13.37
     ```
 
 4. Optional, but recommended for security

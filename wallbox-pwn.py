@@ -85,7 +85,9 @@ class WallboxBLE():
         return self.response
 
 async def main():
-    devices = await BleakScanner.discover()
+    devices = await BleakScanner.discover(10.0)
+    for d in devices:
+        print(d)
 
     # Find device
     wallboxes = [d for d in devices if d.name is not None and d.name.startswith("WB")]

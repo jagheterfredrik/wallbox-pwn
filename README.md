@@ -1,8 +1,6 @@
 # Wallbox pwn
 
 Gain root access to Wallbox Pulsar Plus and Copper SB.
-This only works if you are running firmware v5.x.x.
-If you are running v6.x.x you can try restoring to original settings to see if your Wallbox came originally with v5.x.x from the factory.
 Once rooted, firmware updates shouldn't remove root access.
 
 ## Instructions

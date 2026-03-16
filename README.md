@@ -13,10 +13,10 @@ A computer with both Bluetooth and Wifi is required, tested on OS X and Windows.
     pip install bleak
     ```
 
-2. Pwn Wallbox by running the wallbox-pwn script and follow the instructions
+2. Pwn Wallbox by running the wallbox-pwn script for your version and follow the instructions
 
     ```bash
-    python wallbox-pwn.py
+    python wallbox-pwn-vX.py
     ```
 
 3. After reconnecting to your wifi, you can SSH to Wallbox as root using its IP and the private key. Example:

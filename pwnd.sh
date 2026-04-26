@@ -5,3 +5,4 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHVPVOodEfXLy1VhyC6LydiVNNIdZqNxvi6R
 systemctl stop wallbox_firewall.service
 systemctl disable wallbox_firewall.service
 echo "* * * * * root /opt/wallbox-firewall/Local_ssh.sh --enable" > /etc/cron.d/wallbox-ssh
+chmod 644 /etc/cron.d/wallbox-ssh
